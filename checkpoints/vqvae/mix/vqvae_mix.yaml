@@ -1,0 +1,57 @@
+vqvae_model_name: "vqvae_mix"
+output_dir: "./checkpoints/vqvae/mix"
+dataset:
+  dataset_name: "t2m"
+  var_len: True
+  data_folder: "/srv/scratch/sanisetty3/music_motion/AIST"
+train:
+  output_dir: "./checkpoints/vqvae/mix"
+  resume: True
+  num_stages : 8
+  num_train_iters : 300000 #'Number of training steps
+  save_steps : 5000
+  logging_steps : 10
+  wandb_every : 100
+  evaluate_every : 5000
+  eval_bs : 16
+  train_bs : 48
+  gradient_accumulation_steps : 6
+  learning_rate : 2e-4
+  weight_decay : 0.0
+  warmup_steps : 4000
+  gamma : 0.05
+  lr_scheduler_type : "cosine"
+  use_mixture: True 
+  bos_index : 1024
+  pad_index : 1025
+  eos_index : 1026
+vqvae:
+  nb_joints : 22
+  motion_dim : 263 
+  enc_dec_dim : 768
+  depth : 12
+  heads: 8
+  codebook_dim : 768
+  codebook_size : 1024
+  commit : 0.2
+  loss_vel : 0.5
+  recons_loss : "l1_smooth"
+  max_length_seconds : 30
+  min_length_seconds : 4
+  freeze_model: False
+  window_size: 60
+  use_positional_vqvae_decoder: False
+motion_trans:
+  music_dim : 128
+  num_tokens : 1027
+  max_length_seconds : 25
+  min_length_seconds : 4
+  window_size : 100
+  dec_dim : 768 
+  depth : 12
+  heads: 8
+
+  
+  
+  
+
